@@ -33,12 +33,13 @@
                 Tip: Anda bisa langsung **Copy baris data dari Excel** (Kolom: <b>NIS | Nama | Kelas | Token QR [Opsional]</b>) lalu **Paste** ke kotak di bawah ini secara massal!
             </p>
 
-            <form action="{{ route('admin.students.import') }}" method="POST">
+            <!-- Memakai secure_url atau route dengan penyesuaian HTTPS agar tidak muncul peringatan Mixed Content -->
+            <form action="{{ secure_url(route('admin.students.import', [], false)) }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <textarea name="raw_data" rows="5" class="w-full text-sm font-mono border p-3 rounded-lg bg-gray-50 focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="Contoh Paste dari Excel:
-1001	Ahmad Fauzi	XII IPA 1	TOKEN-SISWA-01
-1002	Siti Aminah	XII IPA 2	TOKEN-SISWA-02" required></textarea>
+1001    Ahmad Fauzi XII IPA 1   TOKEN-SISWA-01
+1002    Siti Aminah XII IPA 2   TOKEN-SISWA-02" required></textarea>
                 </div>
                 <div class="flex justify-between items-center">
                     <a href="{{ route('admin.students.template') }}" class="text-xs text-sky-600 underline font-medium">
@@ -51,7 +52,7 @@
             </form>
         </div>
 
-<!-- Tabel DPT & Tombol Aksi -->
+        <!-- Tabel DPT & Tombol Aksi -->
         <div class="bg-white p-6 rounded-xl shadow-sm border">
             <div class="flex justify-between items-center mb-4 no-print">
                 <h2 class="text-lg font-semibold">Daftar Pemilih Terdaftar (Total: {{ $students->count() }} Siswa)</h2>
@@ -59,7 +60,7 @@
                 <div class="flex gap-2">
                     <!-- Tombol Kosongkan Semua -->
                     @if($students->count() > 0)
-                    <form action="{{ route('admin.students.clear') }}" method="POST" onsubmit="return confirm('PERINGATAN: Yakin ingin menghapus SELURUH data DPT?')">
+                    <form action="{{ secure_url(route('admin.students.clear', [], false)) }}" method="POST" onsubmit="return confirm('PERINGATAN: Yakin ingin menghapus SELURUH data DPT?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-red-100 text-red-700 px-3 py-2 rounded-lg text-sm hover:bg-red-200 font-medium">
@@ -104,7 +105,7 @@
                             </td>
                             <td class="p-3 text-center">
                                 <!-- Tombol Hapus Satuan -->
-                                <form action="{{ route('admin.students.destroy', $student->id) }}" method="POST" onsubmit="return confirm('Hapus data siswa {{ $student->nama }}?')" class="inline">
+                                <form action="{{ secure_url(route('admin.students.destroy', $student->id, false)) }}" method="POST" onsubmit="return confirm('Hapus data siswa {{ $student->nama }}?')" class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 p-1.5 rounded-lg text-xs font-medium" title="Hapus Siswa">
@@ -121,6 +122,7 @@
                     </tbody>
                 </table>
             </div>
+
             <!-- Bagian Cetak Kartu Pelajar -->
             <div class="hidden print:grid grid-cols-2 gap-4">
                 @foreach($students as $student)
@@ -132,7 +134,6 @@
                         <p class="text-[9px] text-gray-500 mt-2 font-mono font-bold">QR Token: {{ $student->qr_token }}</p>
                     </div>
                     <div class="text-center">
-                        <!-- QR Code men-generate token manual sesuai input di database -->
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ urlencode($student->qr_token) }}" alt="QR Code" class="w-20 h-20 mx-auto">
                         <span class="text-[9px] text-gray-500 block mt-1">Scan untuk Memilih</span>
                     </div>
