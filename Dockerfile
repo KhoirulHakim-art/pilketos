@@ -1,35 +1,27 @@
-FROM php:8.2-apache
+FROM php:8.2-fpm
 
-# Install dependencies yang dibutuhkan Laravel
+# Install dependencies sistem termasuk libpq-dev untuk PostgreSQL
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    unzip \
     git \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql pdo_pgsql zip gd
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libpq-dev \
+    zip \
+    unzip
 
-# Aktifkan mod_rewrite Apache
-RUN a2enmod rewrite
+# Install ekstensi PHP untuk Laravel & PostgreSQL
+RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www/html
-
-# Salin seluruh file proyek ke container
+WORKDIR /var/www
 COPY . .
 
-# Ubah document root Apache ke public folder Laravel
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
+RUN composer install --no-dev --optimize-autoloader
 
-# Berikan izin akses folder storage dan bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Jalankan perintah composer, npm, dan migrasi database saat container aktif
-CMD php artisan config:cache && php artisan route:cache && php artisan migrate --force && apache2-foreground
+CMD php artisan config:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
