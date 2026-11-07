@@ -5,6 +5,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VotingController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CandidateController;
+use Illuminate\Support\Facades\Storage;
 
 // Halaman Utama (nanti kita isi untuk home/login)
 Route::get('/', function () {
@@ -37,3 +38,12 @@ Route::delete('/admin/candidates/{id}', [CandidateController::class, 'destroy'])
 
 Route::get('/admin/api/unannounced-votes', [AdminController::class, 'getUnannouncedVotes']);
 Route::post('/admin/api/mark-announced/{id}', [AdminController::class, 'markAnnounced']);
+
+// Route penanganan gambar jika storage link terblokir (Anti 403)
+Route::get('/storage/{path}', function ($path) {
+    $fullPath = storage_path('app/public/' . $path);
+    if (!file_exists($fullPath)) {
+        abort(404);
+    }
+    return response()->file($fullPath);
+})->where('path', '.*');
