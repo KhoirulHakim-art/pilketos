@@ -28,7 +28,7 @@
         <!-- Area Kamera Scanner -->
         <div id="reader" class="overflow-hidden rounded-xl bg-slate-900 border border-slate-700"></div>
 
-        <!-- Opsi Alternatif Input Manual Token dengan Proteksi Password -->
+        <!-- Opsi Alternatif Input Manual Token dengan Proteksi Password 00000 -->
         <div class="mt-4 pt-4 border-t border-slate-700">
             <p class="text-xs text-slate-400 mb-2">Atau masukkan Token QR secara manual (Memerlukan Password):</p>
             <div class="flex gap-2">
@@ -38,6 +38,13 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    <!-- Tombol Akses Panel Admin di Bawah Kotak (Proteksi Password 123456) -->
+    <div class="max-w-md mx-auto w-full text-center mb-4">
+        <button type="button" onclick="accessAdminPanel()" class="text-xs text-slate-500 hover:text-emerald-400 transition underline tracking-wider font-medium cursor-pointer">
+            ⚙️ Login Admin Panel
+        </button>
     </div>
 
     <div class="text-center pb-4 text-xs text-slate-500">
@@ -90,7 +97,7 @@
                 return;
             }
 
-            // Meminta password sebelum memproses input manual
+            // Meminta password 00000 sebelum memproses input manual
             let password = prompt("Masukkan password khusus untuk akses input manual:");
             
             if (password === null) {
@@ -101,6 +108,21 @@
                 verifyToken(tokenInput);
             } else {
                 alert("❌ Password salah! Akses input manual ditolak.");
+            }
+        }
+
+        function accessAdminPanel() {
+            // Meminta password 123456 sebelum masuk ke dashboard admin
+            let password = prompt("Masukkan password akses Admin:");
+            
+            if (password === null) {
+                return; // Jika dibatalkan
+            }
+
+            if (password === "123456") {
+                window.location.href = "{{ route('admin.dashboard') }}";
+            } else {
+                alert("❌ Password admin salah!");
             }
         }
 
