@@ -229,7 +229,7 @@
 
                 let utterance = new SpeechSynthesisUtterance(shortText);
                 utterance.lang = 'id-ID';
-                utterance.rate = 0.95; // Kecepatan natural
+                utterance.rate = 1.25; // Kecepatan natural
 
                 utterance.onend = function() {
                     // Tandai di database bahwa suara ini sudah dibacakan
