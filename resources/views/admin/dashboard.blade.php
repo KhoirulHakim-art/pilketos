@@ -223,7 +223,7 @@
                 let vote = votes[index];
                 
                 // Kalimat dibuat singkat: hanya menyebutkan nomor urut dan nama calon
-                let shortText = `Calon nomor ${vote.candidate_number}, ${vote.candidate_name}`;
+                let shortText = `Nomor ${vote.candidate_number}, ${vote.candidate_name}`;
 
                 document.getElementById('announcerStatus').innerText = `📢 Membacakan: ${shortText}`;
 
