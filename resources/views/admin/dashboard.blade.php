@@ -6,59 +6,74 @@
     <title>Dashboard Admin - Pilketos Mazra</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Efek Glassmorphism Kustom */
+        /* Latar belakang gradient dinamis agar efek kaca (glassmorphism) menonjol */
+        body {
+            background-color: #090d16;
+            background-image: 
+                radial-gradient(at 10% 15%, rgba(16, 185, 129, 0.22) 0px, transparent 45%),
+                radial-gradient(at 88% 20%, rgba(56, 189, 248, 0.20) 0px, transparent 45%),
+                radial-gradient(at 50% 85%, rgba(139, 92, 246, 0.18) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Utilitas Kaca (Glass Panel) */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+        }
+
+        .glass-card-inner {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-        .glass-card {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        /* Custom Scrollbar */
+
+        /* Custom Scrollbar untuk daftar siswa */
         ::-webkit-scrollbar {
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.15);
-            border-radius: 9999px;
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.28);
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen p-6 relative overflow-x-hidden">
+<body class="text-slate-100 font-sans min-h-screen p-6 relative overflow-x-hidden">
 
-    <!-- Background Glow Ornaments -->
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- Ornamen Cahaya Ambient di Belakang -->
+    <div class="fixed top-[-10%] left-[-5%] w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-[-10%] right-[-5%] w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
 
-    <div class="max-w-7xl mx-auto relative z-10">
+    <div class="max-w-7xl mx-auto">
         
         <!-- Header & Navigasi -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center glass-panel p-6 rounded-3xl mb-6 gap-4">
+        <div class="glass-panel flex flex-col md:flex-row justify-between items-start md:items-center p-6 rounded-3xl mb-6 gap-4">
             <div>
-                <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-800/60 shadow-inner">
-                    Admin Control Panel
+                <span class="text-[11px] font-bold text-emerald-300 uppercase tracking-widest bg-emerald-500/15 px-3.5 py-1 rounded-full border border-emerald-400/30 backdrop-blur-md">
+                    ✨ Admin Control Panel
                 </span>
-                <h1 class="text-2xl font-extrabold text-white mt-2 tracking-tight">📊 Live Count & Monitoring Pilketos 2026/2027</h1>
-                <p class="text-xs text-slate-400">SMA Mazra'atul Ulum Paciran (Glassmorphism Aesthetic Edition)</p>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-emerald-200 mt-2.5">
+                    📊 Live Count & Monitoring Pilketos 2026/2027
+                </h1>
+                <p class="text-xs text-slate-300/80 mt-0.5">SMA Mazra'atul Ulum Paciran • Auto Voice Announcer & Real-time Sync</p>
             </div>
             
             <div class="flex flex-wrap items-center gap-2.5">
-                <a href="{{ route('admin.students.index') }}" class="bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 text-xs px-4 py-2.5 rounded-xl font-medium border border-slate-700/60 transition shadow-sm">
+                <a href="{{ route('admin.students.index') }}" class="bg-white/10 hover:bg-white/20 border border-white/15 backdrop-blur-md text-white text-xs px-4 py-2.5 rounded-xl font-medium transition duration-200">
                     📋 Kelola DPT & QR Kartu
                 </a>
-                <a href="{{ route('admin.candidates.index') }}" class="bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 text-xs px-4 py-2.5 rounded-xl font-medium border border-slate-700/60 transition shadow-sm">
+                <a href="{{ route('admin.candidates.index') }}" class="bg-white/10 hover:bg-white/20 border border-white/15 backdrop-blur-md text-white text-xs px-4 py-2.5 rounded-xl font-medium transition duration-200">
                     🙋‍♂️ Kelola Calon
                 </a>
 
@@ -67,12 +82,12 @@
                     @csrf
                     @if($votingStatus == 'open')
                         <input type="hidden" name="status" value="closed">
-                        <button type="submit" class="bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs px-4 py-2.5 rounded-xl font-bold transition shadow-lg">
+                        <button type="submit" class="bg-rose-500/80 hover:bg-rose-500 border border-rose-400/40 backdrop-blur-md text-white text-xs px-4 py-2.5 rounded-xl font-bold transition shadow-lg shadow-rose-950/50">
                             🔴 Tutup Voting
                         </button>
                     @else
                         <input type="hidden" name="status" value="open">
-                        <button type="submit" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs px-4 py-2.5 rounded-xl font-bold transition shadow-lg animate-pulse">
+                        <button type="submit" class="bg-emerald-500/80 hover:bg-emerald-500 border border-emerald-400/40 backdrop-blur-md text-white text-xs px-4 py-2.5 rounded-xl font-bold transition shadow-lg shadow-emerald-950/50 animate-pulse">
                             🟢 Buka Voting Sekarang
                         </button>
                     @endif
@@ -81,35 +96,42 @@
                 <!-- Tombol Reset Data Voting -->
                 <form action="{{ route('admin.voting.reset') }}" method="POST" onsubmit="return confirm('PERINGATAN KERAS: Yakin ingin mereset seluruh hasil suara? Aksi ini akan menghapus semua riwayat suara masuk dan mengembalikan status semua siswa menjadi belum memilih.')" class="inline">
                     @csrf
-                    <button type="submit" class="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-xs px-4 py-2.5 rounded-xl font-bold transition">
-                        🔄 Reset / Buat Vote Baru
+                    <button type="submit" class="bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/30 backdrop-blur-md text-amber-200 text-xs px-4 py-2.5 rounded-xl font-bold transition">
+                        🔄 Reset Vote
                     </button>
                 </form>
             </div>
         </div>
 
         @if(session('success'))
-            <div class="glass-panel border-emerald-800/50 text-emerald-200 px-4 py-3 rounded-2xl mb-6 text-sm font-medium flex items-center gap-2">
-                <span>✅</span> {{ session('success') }}
+            <div class="bg-emerald-500/15 border border-emerald-400/30 backdrop-blur-md text-emerald-200 px-5 py-3.5 rounded-2xl mb-6 text-sm font-medium shadow-lg">
+                ✅ {{ session('success') }}
             </div>
         @endif
 
         <!-- Statistik Kartu Ringkasan -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="glass-card p-5 rounded-2xl shadow-sm relative overflow-hidden group hover:border-slate-600/50 transition">
-                <div class="absolute -right-4 -bottom-4 w-20 h-20 bg-slate-700/10 rounded-full blur-xl group-hover:bg-slate-500/20 transition"></div>
-                <p class="text-[11px] text-slate-400 uppercase font-bold tracking-wider">Total DPT Terdaftar</p>
-                <h3 class="text-3xl font-black text-white mt-1.5">{{ $totalDpt }} <span class="text-xs text-slate-400 font-normal">Siswa</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+            <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-white/25 transition">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/5 rounded-full blur-xl group-hover:bg-white/10 transition"></div>
+                <p class="text-xs text-slate-300/80 uppercase tracking-wider font-bold">Total DPT Terdaftar</p>
+                <h3 class="text-4xl font-black text-white mt-2">{{ $totalDpt }} <span class="text-xs text-slate-400 font-normal">Siswa</span></h3>
             </div>
-            <div class="glass-card p-5 rounded-2xl shadow-sm relative overflow-hidden group hover:border-emerald-500/40 transition">
-                <div class="absolute -right-4 -bottom-4 w-20 h-20 bg-emerald-500/10 rounded-full blur-xl group-hover:bg-emerald-500/20 transition"></div>
-                <p class="text-[11px] text-emerald-400 uppercase font-bold tracking-wider">Sudah Menggunakan Hak Suara</p>
-                <h3 class="text-3xl font-black text-emerald-300 mt-1.5">{{ $totalVoted }} <span class="text-xs text-slate-400 font-normal">Siswa ({{ $totalDpt > 0 ? round(($totalVoted/$totalDpt)*100, 1) : 0 }}%)</span></h3>
+
+            <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-emerald-400/30 transition">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/15 rounded-full blur-xl group-hover:bg-emerald-500/25 transition"></div>
+                <p class="text-xs text-emerald-300 uppercase tracking-wider font-bold">Sudah Menggunakan Hak Suara</p>
+                <h3 class="text-4xl font-black text-emerald-400 mt-2">
+                    {{ $totalVoted }} 
+                    <span class="text-xs text-emerald-200/70 font-medium bg-emerald-500/15 px-2.5 py-0.5 rounded-full border border-emerald-400/20 ml-1">
+                        {{ $totalDpt > 0 ? round(($totalVoted/$totalDpt)*100, 1) : 0 }}%
+                    </span>
+                </h3>
             </div>
-            <div class="glass-card p-5 rounded-2xl shadow-sm relative overflow-hidden group hover:border-amber-500/40 transition">
-                <div class="absolute -right-4 -bottom-4 w-20 h-20 bg-amber-500/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition"></div>
-                <p class="text-[11px] text-amber-400 uppercase font-bold tracking-wider">Belum Memilih</p>
-                <h3 class="text-3xl font-black text-amber-300 mt-1.5">{{ $totalUnvoted }} <span class="text-xs text-slate-400 font-normal">Siswa</span></h3>
+
+            <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group hover:border-amber-400/30 transition">
+                <div class="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/15 rounded-full blur-xl group-hover:bg-amber-500/25 transition"></div>
+                <p class="text-xs text-amber-300 uppercase tracking-wider font-bold">Belum Memilih</p>
+                <h3 class="text-4xl font-black text-amber-400 mt-2">{{ $totalUnvoted }} <span class="text-xs text-slate-400 font-normal">Siswa</span></h3>
             </div>
         </div>
 
@@ -120,19 +142,21 @@
             <div class="lg:col-span-2 space-y-6">
                 
                 <!-- Status Bar Live Announcer Otomatis -->
-                <div class="bg-gradient-to-r from-emerald-950/80 via-slate-900/80 to-slate-900/80 backdrop-blur-xl border border-emerald-500/30 p-4 rounded-2xl shadow-xl flex items-center justify-between">
+                <div class="glass-panel bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-transparent border-emerald-400/30 p-5 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
-                        <span class="text-[10px] bg-emerald-500 text-slate-950 font-extrabold px-2 py-0.5 rounded uppercase tracking-wider shadow">Auto Announcer</span>
-                        <h2 class="text-sm font-bold text-white mt-1">🎙️ Sistem Pembaca Suara Masuk Otomatis Aktif</h2>
-                        <p class="text-xs text-slate-400">Suara nama calon dibacakan otomatis, grafik diperbarui secara real-time.</p>
+                        <span class="text-[10px] bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                            Auto Announcer
+                        </span>
+                        <h2 class="text-sm font-bold text-white mt-1.5">🎙️ Sistem Pembaca Suara Masuk Otomatis Aktif</h2>
+                        <p class="text-xs text-slate-300/75 mt-0.5">Menyebutkan nama calon secara langsung dan memperbarui grafik otomatis.</p>
                     </div>
-                    <div id="announcerStatus" class="text-xs text-emerald-300 font-mono bg-emerald-950/90 px-3 py-1.5 rounded-xl border border-emerald-800/80 shadow-inner">
+                    <div id="announcerStatus" class="text-xs text-emerald-200 font-mono bg-black/30 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/10 shrink-0">
                         Status: Menunggu suara masuk...
                     </div>
                 </div>
 
                 <!-- Grafik Perolehan Suara Calon -->
-                <div class="glass-panel p-6 rounded-3xl shadow-lg">
+                <div class="glass-panel p-6 rounded-3xl">
                     <h2 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
                         🏆 Perolehan Suara Sementara
                     </h2>
@@ -144,15 +168,15 @@
                             $percentage = $totalDpt > 0 ? ($totalVotes / $totalDpt) * 100 : 0;
                         @endphp
 
-                        <!-- Baris Kandidat -->
-                        <div class="flex items-center gap-4 bg-slate-900/60 p-4 rounded-2xl border border-slate-700/40 hover:border-slate-600/60 transition">
+                        <!-- Baris Kandidat: Glass Card Inner -->
+                        <div class="glass-card-inner flex items-center gap-4 p-4 rounded-2xl hover:bg-white/[0.06] transition duration-200">
                             
                             <!-- Foto Kecil Calon -->
                             <div class="shrink-0">
                                 @if($candidate->foto)
-                                    <img src="{{ asset('storage/' . $candidate->foto) }}" class="w-12 h-12 rounded-xl object-cover border border-slate-700 shadow-md">
+                                    <img src="{{ asset('storage/' . $candidate->foto) }}" class="w-14 h-14 rounded-2xl object-cover border border-white/20 shadow-md">
                                 @else
-                                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-[10px] text-slate-400 border border-slate-700">
+                                    <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-[10px] text-slate-300 border border-white/15">
                                         Foto
                                     </div>
                                 @endif
@@ -160,19 +184,24 @@
 
                             <!-- Bagian Kanan (Nama, Progress Bar, & Jumlah Suara) -->
                             <div class="flex-1">
-                                <div class="flex justify-between items-center mb-1.5 text-sm">
-                                    <span class="font-bold text-white tracking-wide">
-                                        Calon {{ $candidate->nomor_urut }} - {{ $candidate->nama }}
-                                    </span>
+                                <div class="flex justify-between items-center mb-2 text-sm">
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-white/10 text-emerald-300 border border-white/15 text-xs font-extrabold px-2.5 py-0.5 rounded-lg">
+                                            #{{ $candidate->nomor_urut }}
+                                        </span>
+                                        <span class="font-bold text-white text-base">
+                                            {{ $candidate->nama }}
+                                        </span>
+                                    </div>
                                     <div class="text-right">
-                                        <span class="font-extrabold text-emerald-400">{{ $totalVotes }} Suara</span>
-                                        <span class="text-xs text-slate-400 ml-1 font-mono">({{ number_format($percentage, 1) }}%)</span>
+                                        <span class="font-extrabold text-emerald-300">{{ $totalVotes }} Suara</span>
+                                        <span class="text-xs text-slate-300/75 ml-1">({{ number_format($percentage, 1) }}%)</span>
                                     </div>
                                 </div>
 
-                                <!-- Batang Grafik Progress Bar -->
-                                <div class="w-full bg-slate-950/80 rounded-full h-3 overflow-hidden border border-slate-800 p-0.5 shadow-inner">
-                                    <div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full rounded-full transition-all duration-700 shadow-sm shadow-emerald-500/50" style="width: {{ $percentage }}%"></div>
+                                <!-- Batang Grafik Progress Bar Kaca -->
+                                <div class="w-full bg-black/30 rounded-full h-3.5 overflow-hidden border border-white/10 p-0.5">
+                                    <div class="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-700 shadow-[0_0_12px_rgba(52,211,153,0.5)]" style="width: {{ $percentage }}%"></div>
                                 </div>
                             </div>
 
@@ -184,23 +213,23 @@
             </div>
 
             <!-- Kolom Kanan: Daftar Siswa Yang Belum Memilih -->
-            <div class="glass-panel p-6 rounded-3xl shadow-xl flex flex-col h-[520px]">
-                <div class="flex justify-between items-center mb-3">
+            <div class="glass-panel p-6 rounded-3xl flex flex-col h-[540px]">
+                <div class="flex justify-between items-center mb-4 gap-2">
                     <h2 class="text-base font-bold text-white">⚠️ Belum Memilih (<span id="countUnvoted">{{ $unvotedStudents->count() }}</span>)</h2>
-                    <input type="text" id="searchUnvoted" placeholder="Cari nama/kelas..." class="bg-slate-900/80 border border-slate-700/60 text-xs px-3 py-1.5 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 w-36 shadow-inner">
+                    <input type="text" id="searchUnvoted" placeholder="Cari nama/kelas..." class="bg-black/25 border border-white/15 backdrop-blur-md text-xs px-3.5 py-2 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400/60 w-36 transition">
                 </div>
                 
-                <div class="overflow-y-auto flex-1 pr-1 space-y-2 border border-slate-700/40 rounded-2xl p-2 bg-slate-950/40 shadow-inner" id="listUnvoted">
+                <div class="overflow-y-auto flex-1 pr-1.5 space-y-2.5 rounded-2xl p-2 bg-black/20 border border-white/5" id="listUnvoted">
                     @forelse($unvotedStudents as $student)
-                    <div class="unvoted-item text-xs bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 flex justify-between items-center hover:bg-slate-800/50 transition">
+                    <div class="unvoted-item glass-card-inner text-xs p-3 rounded-2xl flex justify-between items-center hover:bg-white/[0.07] transition">
                         <div>
                             <strong class="text-white block student-name font-semibold">{{ $student->nama }}</strong>
-                            <span class="text-slate-400 text-[10px] student-class font-mono">NIS: {{ $student->nis }} | {{ $student->kelas }}</span>
+                            <span class="text-slate-300/70 text-[10px] student-class">NIS: {{ $student->nis }} • {{ $student->kelas }}</span>
                         </div>
-                        <span class="bg-amber-950/60 text-amber-400 border border-amber-800/50 text-[9px] px-2 py-0.5 rounded-md font-semibold tracking-wide">Belum</span>
+                        <span class="bg-amber-500/15 text-amber-300 border border-amber-400/30 text-[10px] px-2.5 py-0.5 rounded-full font-semibold">Belum</span>
                     </div>
                     @empty
-                    <div class="text-center py-12 text-slate-500 text-xs">
+                    <div class="text-center py-14 text-slate-300/70 text-xs">
                         🎉 Luar biasa! Semua DPT telah menggunakan hak suaranya.
                     </div>
                     @endforelse
@@ -248,7 +277,6 @@
 
             function readNext() {
                 if (index >= votes.length) {
-                    // Setelah semua antrean suara selesai dibacakan, refresh halaman agar grafik & statistik naik
                     document.getElementById('announcerStatus').innerText = "Status: Selesai, memperbarui grafik...";
                     setTimeout(() => {
                         location.reload();
@@ -258,17 +286,16 @@
 
                 let vote = votes[index];
                 
-                // HANYA MENYEBUTKAN NAMA CALON SAJA TANPA NOMOR URUT
+                // Hanya menyebutkan nama calon tanpa nomor urut
                 let shortText = vote.candidate_name;
 
                 document.getElementById('announcerStatus').innerText = `📢 Membacakan: ${shortText}`;
 
                 let utterance = new SpeechSynthesisUtterance(shortText);
                 utterance.lang = 'id-ID';
-                utterance.rate = 1.25; // Kecepatan natural
+                utterance.rate = 0.95;
 
                 utterance.onend = function() {
-                    // Tandai di database bahwa suara ini sudah dibacakan
                     fetch(`{{ url('/admin/api/mark-announced') }}/${vote.id}`, {
                         method: 'POST',
                         headers: {
@@ -277,7 +304,7 @@
                         }
                     }).then(() => {
                         index++;
-                        setTimeout(readNext, 800); // Jeda singkat antar suara
+                        setTimeout(readNext, 800);
                     });
                 };
 
